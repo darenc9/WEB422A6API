@@ -41,7 +41,7 @@ app.post("/api/user/register", (req, res) => {
     .then((msg) => {
         res.json({ "message": "User registered" });
     }).catch((msg) => {
-        res.status(422).json({ "message": "error occurred" });
+        res.status(422).json({ "message": msg });
     });
 });
 
