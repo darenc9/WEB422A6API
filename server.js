@@ -4,12 +4,12 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config();
 const userService = require("./user-service.js");
-const passport = require("password");
+const passport = require("passport");
 const passportJWT = require("passport-jwt");
 
 const HTTP_PORT = process.env.PORT || 8080;
 
-let ExtractJwt = passportPWT.ExtractJwt;
+let ExtractJwt = passportJWT.ExtractJwt;
 let JwtStrategy = passportJWT.Strategy;
 
 let jwtOptions = {
@@ -39,9 +39,9 @@ passport.use(strategy);
 app.post("/api/user/register", (req, res) => {
     userService.registerUser(req.body)
     .then((msg) => {
-        res.json({ "message": msg });
+        res.json({ "message": "User registered" });
     }).catch((msg) => {
-        res.status(422).json({ "message": msg });
+        res.status(422).json({ "message": "error occurred" });
     });
 });
 
