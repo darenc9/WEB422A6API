@@ -48,17 +48,12 @@ app.post("/api/user/register", (req, res) => {
 app.post("/api/user/login", (req, res) => {
     userService.checkUser(req.body)
     .then((user) => {
-        const payload = {
+        let payload = {
             _id: user._id,
             userName: user.userName
         };
-        jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: '5h'}, (err, token) => {
-            if (err)
-                res.status(500).json({"message":"Error generating token"});
-            else
-            res.json({ "message": "login successful", "token":token});
-        })
-
+        let token = jwt.sign(payload, jwtOptions.secretOrKey);
+        res.json({ message: "login successful", token: token});
     }).catch(msg => {
         res.status(422).json({ "message": msg });
     });
